@@ -9,6 +9,10 @@ import random, pygame, sys
 #This line is importing the pygame functions from the module - BC
 from pygame.locals import *
 
+pygame.mixer.init()
+pygame.mixer.music.load("garage.mp3") 
+pygame.mixer.music.play(-1,0.0)
+
 #This line is setting the frames per second. It denotes how smoothly the game will run - BC
 #This line sets the speed that any animated objects will move at - VG
 #EDIT: changed the FPS from 15 to 10 to make game slower
@@ -49,6 +53,8 @@ DARKGREEN = (  0, 155,   0)
 #The colour dark gray has 40 of red, green, and blue so this line sets the colour dark gray - BC
 DARKGRAY  = ( 40,  40,  40)
 ORANGE    = (255, 127, 0)
+PINK      = (255, 0, 212)
+LIGHTPINK = (255, 102, 255)
 #BGCOLOR stands for background colour, this is setting the background colour to black - BC
 BGCOLOR = BLACK
 
@@ -201,7 +207,7 @@ def runGame():
         FPSCLOCK.tick(FPS)
 
 def drawPressKeyMsg():
-    pressKeySurf = BASICFONT.render('Press a key to play.', True, DARKGRAY)
+    pressKeySurf = BASICFONT.render('Press a key to play.', True, PINK)
     pressKeyRect = pressKeySurf.get_rect()
     pressKeyRect.topleft = (WINDOWWIDTH - 200, WINDOWHEIGHT - 30)
     DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
@@ -231,9 +237,9 @@ def showStartScreen():
     titleFont = pygame.font.Font('freesansbold.ttf', 100)
     
     #initializing the white title to say 'Wormy!' and be white text in a darkgreen textbox - VG
-    titleSurf1 = titleFont.render('Wormy!', True, WHITE, DARKGREEN)
+    titleSurf1 = titleFont.render('Wormy!', True, PINK, WHITE)
     #initializing the green title to say 'Wormy!' and be green text in a default transparent textbox - VG
-    titleSurf2 = titleFont.render('Wormy!', True, GREEN)
+    titleSurf2 = titleFont.render('Wormy!', True, LIGHTPINK)
 
     #sets the initial orientation of the two title textboxes to be unrotated - VG
     degrees1 = 0
@@ -301,8 +307,8 @@ def showGameOverScreen():
     #renders the text that says game and over
     #True for antialias option ensures that the text will be high definition
     #third parameter says that the text is white
-    gameSurf = gameOverFont.render('Game', True, WHITE)
-    overSurf = gameOverFont.render('Over', True, WHITE)
+    gameSurf = gameOverFont.render('Game', True, PINK)
+    overSurf = gameOverFont.render('Over', True, PINK)
 
     #these rectangles are the spaces where each word will be written
     gameRect = gameSurf.get_rect()
@@ -346,7 +352,7 @@ def drawScore(score):
     #colour set to white RGB variable
     
     #Changed the score caption to say length, representing the number of segments in the worms
-    scoreSurf = BASICFONT.render('Length: %s' % (score), True, WHITE)
+    scoreSurf = BASICFONT.render('Length: %s' % (score), True, PINK)
 
     #creates the 'textbox' rectangle the score will be placed into
     scoreRect = scoreSurf.get_rect()
@@ -382,14 +388,14 @@ def drawWorm(wormCoords):
         #places each worm segment square onto the displaysurf interface
         #colour of the worm will be dark green
         #wormSegmentRect argument is the pre-initialized shape that is the rectangle being drawn
-        pygame.draw.rect(DISPLAYSURF, DARKGREEN, wormSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, PINK, wormSegmentRect)
 
         #these two lines create the same size rectangle, that also has the same coordinates less 4, and 8 units smaller in length and height
         #these rectangles are lighter green, and drawn inside each of the worm's segments
         #each segments coordinates are x+4 and y+4 as the rectangle drawn based off the top left corner's coordinates
         #+4 will allow the inner segment to be centred within the larger dark green segments
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
-        pygame.draw.rect(DISPLAYSURF, GREEN, wormInnerSegmentRect)
+        pygame.draw.rect(DISPLAYSURF, LIGHTPINK, wormInnerSegmentRect)
         if (len(wormCoords) <= 2):
             showGameOverScreen()
 
