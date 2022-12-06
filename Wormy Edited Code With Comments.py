@@ -147,17 +147,21 @@ def runGame():
         #if either x or y coordinate of the worm's head is equal to a coordinate outside the window width or height - VG
         #Edit: Instead of dying when you hit the edges of the window, you come out the other side (ei. pacman)
         for i in range(len(wormCoords)):
-            if wormCoords[i]['x'] == -1:
+            if wormCoords[i]['x'] <= -1:
                 wormCoords[i]['x'] = CELLWIDTH + i
+                pygame.time.wait(100)
                 
-            elif wormCoords[i]['x'] == CELLWIDTH:
+            elif wormCoords[i]['x'] >= CELLWIDTH:
                 wormCoords[i]['x'] = -1 - i
+                pygame.time.wait(100)
                 
-            elif wormCoords[i]['y'] == -1:
+            elif wormCoords[i]['y'] <= -1:
                 wormCoords[i]['y'] = CELLHEIGHT+ i
+                pygame.time.wait(100)
                 
-            elif wormCoords[i]['y'] == CELLHEIGHT:
+            elif wormCoords[i]['y'] >= CELLHEIGHT:
                 wormCoords[i]['y'] = -1 - i
+                pygame.time.wait(100)
 
         #checking to see if the worm’s position has changed to where it is hitting the end of the grid or the “wall”, and if it has collided with itself which triggers the end of the game - EK
         for wormBody in wormCoords[1:]:
