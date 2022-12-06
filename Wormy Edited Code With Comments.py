@@ -164,6 +164,9 @@ def runGame():
             if wormBody['x'] == wormCoords[HEAD]['x'] and wormBody['y'] == wormCoords[HEAD]['y']:
                 return # game over
             
+        if (len(wormCoords) <= 2):
+            return
+            
         if wormCoords[HEAD]['x'] == orange['x'] and wormCoords[HEAD]['y'] == orange['y']:
             del wormCoords[-1]
             orange = getRandomLocation()
@@ -396,8 +399,6 @@ def drawWorm(wormCoords):
         #+4 will allow the inner segment to be centred within the larger dark green segments
         wormInnerSegmentRect = pygame.Rect(x + 4, y + 4, CELLSIZE - 8, CELLSIZE - 8)
         pygame.draw.rect(DISPLAYSURF, LIGHTPINK, wormInnerSegmentRect)
-        if (len(wormCoords) <= 2):
-            showGameOverScreen()
 
 
 #this function places each apple on the grid for worm to collect
