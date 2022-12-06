@@ -3,7 +3,7 @@
 # http://inventwithpython.com/pygame
 # Released under a "Simplified BSD" license
 
-#Edited by: Beth Cairney, Victoria Granger and Emma Kerr
+#Edited by: Beth Cairney (20989743), Victoria Granger (21021666) and Emma Kerr (21033117)
 #Github Usernames: bethcairney, victoriagranger, and emmakerr2
 
 #This line is importing the pygame, random and sys modules - BC
