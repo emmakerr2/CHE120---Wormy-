@@ -179,7 +179,7 @@ def runGame():
         drawWorm(wormCoords)
         drawApple(apple)
         drawOrange(orange)
-        drawScore(len(wormCoords) - 3)
+        drawScore(len(wormCoords))
 
         #updates the display at a rate of 40 frames per second - VG
         pygame.display.update()
@@ -329,7 +329,9 @@ def drawScore(score):
     #sets the text to be variable depending on user's current score
     #antialias set to True for smooth text display
     #colour set to white RGB variable
-    scoreSurf = BASICFONT.render('Score: %s' % (score), True, WHITE)
+    
+    #Changed the score caption to say length, representing the number of segments in the worms
+    scoreSurf = BASICFONT.render('Length: %s' % (score), True, WHITE)
 
     #creates the 'textbox' rectangle the score will be placed into
     scoreRect = scoreSurf.get_rect()
