@@ -11,14 +11,18 @@ from pygame.locals import *
 
 #This line is setting the frames per second. It denotes how smoothly the game will run - BC
 #This line sets the speed that any animated objects will move at - VG
-FPS = 15
+#EDIT: changed the FPS from 15 to 10 to make game slower
+FPS = 10
 
 #WINDOWWIDTH is the width of the grid players play wormy on that appears on their console when wormy is run - BC
 #WINDOWHEIGHT is the height of the grid players play wormy on that appears on their console when wormy is run - BC
 #CELLSIZE is the size of the cells in the grid.  - BC
+#EDIT: changed window dimensions to be a larger window
 WINDOWWIDTH = 1000
 WINDOWHEIGHT = 600
-CELLSIZE = 20
+
+#EDIT: changed the cellsize from 20 to 25 to make larger squares
+CELLSIZE = 25
 
 #Theese assertion statements makes sure only a whole number of cells can fit in the window. Here it is referring to the amount of cells that can fit across - BC
 #If the window width or height is not a multiple of the cellsize, program encounters an assertion error - VG
@@ -135,10 +139,19 @@ def runGame():
 
         #Check if the worm has hit itself or the edge
         #if either x or y coordinate of the worm's head is equal to a coordinate outside the window width or height - VG
-        if wormCoords[HEAD]['x'] == -1 or wormCoords[HEAD]['x'] == CELLWIDTH or wormCoords[HEAD]['y'] == -1 or wormCoords[HEAD]['y'] == CELLHEIGHT:
-
-            #ends the game, moving the main to the game over screen function - VG
-            return
+        #Edit: Instead of dying when you hit the edges of the window, you come out the other side (ei. pacman)
+        for i in range(len(wormCoords)):
+            if wormCoords[i]['x'] == -1:
+                wormCoords[i]['x'] = CELLWIDTH + i
+                
+            elif wormCoords[i]['x'] == CELLWIDTH:
+                wormCoords[i]['x'] = -1 - i
+                
+            elif wormCoords[i]['y'] == -1:
+                wormCoords[i]['y'] = CELLHEIGHT+ i
+                
+            elif wormCoords[i]['y'] == CELLHEIGHT:
+                wormCoords[i]['y'] = -1 - i
 
         #checking to see if the worm’s position has changed to where it is hitting the end of the grid or the “wall”, and if it has collided with itself which triggers the end of the game - EK
         for wormBody in wormCoords[1:]:
@@ -179,6 +192,8 @@ def runGame():
         drawWorm(wormCoords)
         drawApple(apple)
         drawOrange(orange)
+        
+        #EDIT: changed the score to be the length of the worm, representing number of segments
         drawScore(len(wormCoords))
 
         #updates the display at a rate of 40 frames per second - VG
@@ -297,8 +312,8 @@ def showGameOverScreen():
     #'game' textbox is 10 units down from the top of the screen
     #'over' textbox is set to be 25 units below the bottom of the word game
     #midtop indicates that its the centre of the words that are placed at those coordinates
-    gameRect.midtop = (WINDOWWIDTH / 2, 10)
-    overRect.midtop = (WINDOWWIDTH / 2, gameRect.height + 10 + 25)
+    gameRect.midtop = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2 - 150)
+    overRect.midtop = (WINDOWWIDTH / 2, WINDOWHEIGHT / 2)
 
     #prints each word out onto its respective rectangle on the display interface
     DISPLAYSURF.blit(gameSurf, gameRect)
